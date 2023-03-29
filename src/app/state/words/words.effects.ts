@@ -7,15 +7,16 @@ import * as wordsActions from './words.actions';
  
 @Injectable()
 export class WordsEffects { 
-  loadWords$ = createEffect(() => this.actions$.pipe(
-    ofType(wordsActions.getWordsRequest),
-    switchMap(({_p}) => this.wordsService.getWords(_p.wordTypeId)
-      .pipe(
-        map(words =>  wordsActions.getWordsSuccess({ words: words })),
-        catchError((error: ProblemDetails) => of(wordsActions.getWordsError({ error: error })))
-      ))
-    )
-  );
+  loadWords$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(wordsActions.getWordsRequest),
+      switchMap((parmaters) => this.wordsService.getWords(parmaters.wordTypeId)
+        .pipe(
+          map(words =>  wordsActions.getWordsSuccess({ words: words })),
+          catchError((error: ProblemDetails) => of(wordsActions.getWordsError({ error: error })))
+        ))
+      )
+ });
  
   constructor(
     private actions$: Actions,

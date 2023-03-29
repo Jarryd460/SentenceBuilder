@@ -17,5 +17,16 @@ export const sentencesReducer = createReducer(
   on(sentencesActions.getSentencesRequest, (state) => state),
   on(sentencesActions.getSentencesSuccess, (state, {sentences}) => ({ sentences: sentences, error: {} })),
   on(sentencesActions.getSentencesError, (state, {error}) => ({ sentences: [], error: error })),
+  on(sentencesActions.createSentenceRequest, (state) => state),
+  on(sentencesActions.createSentenceSuccess, (state, {sentence}) => {
+    let newState: SentencesState = {
+      sentences: [...state.sentences],
+      error: {}
+    };
+
+    newState.sentences.unshift(sentence);
+    return newState;
+  }),
+  on(sentencesActions.createSentenceError, (state, {error}) => ({ sentences: [], error: error })),
   on(sentencesActions.sentencesReset, (state) => initialState)
 );

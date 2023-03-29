@@ -21,7 +21,7 @@
     "@ngrx/effects": "^15.4.0",
     "@ngrx/store": "^15.4.0",
     "rxjs": "~7.8.0",
-    "sentencebuilder-api-client-sdk-typescriptangular": "^1.0.1",
+    "sentencebuilder-api-client-sdk-typescriptangular": "^1.0.2",
     "tslib": "^2.3.0",
     "zone.js": "~0.12.0"
   },

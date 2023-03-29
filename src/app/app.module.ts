@@ -15,6 +15,8 @@ import { wordsReducer } from './state/words/words.reducers';
 import { sentencesReducer } from './state/sentences/sentences.reducers';
 import { SentencesEffects } from './state/sentences/sentences.effects';
 
+import { environment } from '../environments/environment';
+
 @NgModule({
   declarations: [
     AppComponent
@@ -37,7 +39,9 @@ import { SentencesEffects } from './state/sentences/sentences.effects';
       SentencesEffects
     ])
   ],
-  providers: [],
+  providers: [
+    { provide: BASE_PATH, useValue: environment.apiRoot } 
+  ],
   bootstrap: [
     AppComponent
   ]

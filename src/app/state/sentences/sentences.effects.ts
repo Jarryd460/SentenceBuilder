@@ -16,6 +16,16 @@ export class SentencesEffects {
       ))
     )
   );
+
+  createSentence$ = createEffect(() => this.actions$.pipe(
+    ofType(sentencesActions.createSentenceRequest),
+    switchMap((parameters) => this.sentencesService.postSentence(parameters.sentence)
+      .pipe(
+        map((sentence) =>  sentencesActions.createSentenceSuccess({ sentence: sentence })),
+        catchError((error: ProblemDetails) => of(sentencesActions.createSentenceError({ error: error })))
+      ))
+    )
+  );
  
   constructor(
     private actions$: Actions,
