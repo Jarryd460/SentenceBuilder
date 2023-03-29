@@ -12,6 +12,8 @@ import { EffectsModule } from '@ngrx/effects';
 import { WordTypesEffects } from './state/word-types/word-types.effects';
 import { WordsEffects } from './state/words/words.effects';
 import { wordsReducer } from './state/words/words.reducers';
+import { sentencesReducer } from './state/sentences/sentences.reducers';
+import { SentencesEffects } from './state/sentences/sentences.effects';
 
 @NgModule({
   declarations: [
@@ -25,12 +27,14 @@ import { wordsReducer } from './state/words/words.reducers';
     StoreModule.forRoot(
       { 
         wordTypes: wordTypesReducer ,
-        words: wordsReducer
+        words: wordsReducer,
+        sentences: sentencesReducer
       }
     ),
     EffectsModule.forRoot([
       WordTypesEffects,
-      WordsEffects
+      WordsEffects,
+      SentencesEffects
     ])
   ],
   providers: [],
