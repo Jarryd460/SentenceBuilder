@@ -3,6 +3,15 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { StoreModule } from '@ngrx/store';
+import { wordTypesReducer } from './state/word-types/word-types.reducers';
+import { ApiModule } from 'sentencebuilder-api-client-sdk-typescriptangular';
+import { HttpClientModule } from '@angular/common/http';
+import { BASE_PATH } from 'sentencebuilder-api-client-sdk-typescriptangular';
+import { EffectsModule } from '@ngrx/effects';
+import { WordTypesEffects } from './state/word-types/word-types.effects';
+import { WordsEffects } from './state/words/words.effects';
+import { wordsReducer } from './state/words/words.reducers';
 
 @NgModule({
   declarations: [
@@ -10,9 +19,23 @@ import { AppComponent } from './app.component';
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    ApiModule,
+    HttpClientModule,
+    StoreModule.forRoot(
+      { 
+        wordTypes: wordTypesReducer ,
+        words: wordsReducer
+      }
+    ),
+    EffectsModule.forRoot([
+      WordTypesEffects,
+      WordsEffects
+    ])
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [
+    AppComponent
+  ]
 })
 export class AppModule { }
