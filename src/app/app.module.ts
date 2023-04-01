@@ -16,10 +16,13 @@ import { sentencesReducer } from './state/sentences/sentences.reducers';
 import { SentencesEffects } from './state/sentences/sentences.effects';
 
 import { environment } from '../environments/environment';
+import { SentenceComponent } from './sentence/sentence.component';
+import { appReducer } from './state/app.reducer';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    SentenceComponent
   ],
   imports: [
     BrowserModule,
@@ -30,7 +33,8 @@ import { environment } from '../environments/environment';
       { 
         wordTypes: wordTypesReducer ,
         words: wordsReducer,
-        sentences: sentencesReducer
+        sentences: sentencesReducer,
+        appState: appReducer
       }
     ),
     EffectsModule.forRoot([

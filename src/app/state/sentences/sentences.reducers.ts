@@ -4,7 +4,7 @@ import * as sentencesActions from './sentences.actions';
 
 export interface SentencesState {
   sentences: SentenceDto[];
-  error: ProblemDetails;
+  error: ProblemDetails;  
 }
 
 const initialState: SentencesState = {
@@ -14,19 +14,25 @@ const initialState: SentencesState = {
 
 export const sentencesReducer = createReducer(
   initialState,
-  on(sentencesActions.getSentencesRequest, (state) => state),
   on(sentencesActions.getSentencesSuccess, (state, {sentences}) => ({ sentences: sentences, error: {} })),
   on(sentencesActions.getSentencesError, (state, {error}) => ({ sentences: [], error: error })),
-  on(sentencesActions.createSentenceRequest, (state) => state),
   on(sentencesActions.createSentenceSuccess, (state, {sentence}) => {
     let newState: SentencesState = {
-      sentences: [...state.sentences],
-      error: {}
+      ...state,
+      sentences: [...state.sentences, sentence]
     };
 
-    newState.sentences.unshift(sentence);
     return newState;
   }),
   on(sentencesActions.createSentenceError, (state, {error}) => ({ sentences: [], error: error })),
+  on(sentencesActions.deleteSentenceSuccess, (state, { sentenceId }) => {
+    let newState: SentencesState = {
+      ...state,
+      sentences: state.sentences.filter((sentence) => sentence.id != sentenceId)
+    };
+
+    return newState;
+  }),
+  on(sentencesActions.deleteSentenceError, (state, {error}) => ({ sentences: [], error: error })),
   on(sentencesActions.sentencesReset, (state) => initialState)
 );
